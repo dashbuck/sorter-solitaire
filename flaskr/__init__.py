@@ -25,9 +25,13 @@ def create_app(test_config=None):
     else:
         print("The instance folder does not exist.")
 
+    #Create database. Erases whatever might have been there previously.
     from . import db
     db.init_app(app)
-    
+
+    #Authorize
+    from . import auth
+    app.register_blueprint(auth.bp)
     
     #hello page
     @app.route('/hello')
